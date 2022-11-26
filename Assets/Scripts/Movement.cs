@@ -8,10 +8,12 @@ public class Movement : MonoBehaviour
     [SerializeField] private float angularSpeed;
 
     private Rigidbody rigidbody;
+    private AudioSource audioSource;
 
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -46,6 +48,15 @@ public class Movement : MonoBehaviour
             Vector3 force = Vector3.up * (boost * Time.deltaTime);
             rigidbody.AddRelativeForce(force);
             rigidbody.freezeRotation = false;
+
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            audioSource.Stop();
         }
     }
 }
